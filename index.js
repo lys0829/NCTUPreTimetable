@@ -14,7 +14,7 @@ function gentable(){
         //console.log(T);
         tr = `<tr id="R-${T}"><td scope="row">${T}-(${TimeStatement[Tid++]})</td>`;
         for(D=1;D<=7;D++){
-            tr += `<td id="E-${D}${T}" class="TableElement" align='center' valign="middle"></td>`;
+            tr += `<td id="E-${D}${T}" class="TableElement" align='center' style="vertical-align: middle;"></td>`;
         }
         tr += `</tr>`;
         $("#timetable tbody").append(tr);
@@ -34,10 +34,12 @@ function parseTime(timeCode){
 }
 
 function showTable(CourseList){
+    $("#timetable tbody").empty();
+    gentable();
     CourseList.forEach(Course => {
         timelist = parseTime(Course['time']);
         for(i=0;i<timelist.length;i++){
-            $(`#E-${timelist[i]}`).append(`<button type="button" class="btn btn-outline-secondary course" name="${Course['id']}">${Course['name']}</button>`);
+            $(`#E-${timelist[i]}`).append(`<button type="button" class="btn btn-outline-secondary course" name="${Course['id']}">${Course['name']}</button><br>`);
         }
     });
 }
