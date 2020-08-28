@@ -2,25 +2,48 @@
 <html>
   <head>
     <title>交大預排課表</title>
+    <meta charset="UTF-8" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   </head>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
   <script src="index.js"></script>
   <body>
+    <!-- Course info modal -->
+    <div class="modal fade" id="CourseInfoModal" tabindex="-1" aria-labelledby="CourseInfoModal-Title" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="CourseInfoModal-Title">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="CourseInfoModal-info">
+            <ul>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" id="CourseInfoModal-Delete">Delete</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Course info modal end-->
     <div class="container-fluid">
-      <div class="row">
-        <div class="col">
+      <div class="row justify-content-center" style="margin-top: 20px">
+        <div class="col-3">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="當期課號" id="CourseID" aria-describedby="basic-addon1">
+            <input type="text" class="form-control" placeholder="當期課號" id="AddCourseID" aria-describedby="AddCourseButton">
             <div class="input-group-prepend">
-              <button class="btn btn-outline-primary" type="button" id="basic-addon1" onclick="AddCourse(123)">Add</button>
+              <button class="btn btn-outline-primary" type="button" id="AddCourseButton">Add</button>
             </div>
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row" style="margin-top: 10px">
         <div class="col">
           <table class="table table-bordered" id="timetable" style="table-layout:fixed;line-height:40px;">
             <thead>
