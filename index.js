@@ -70,6 +70,9 @@ function AddCourse(CourseID){
         alert("The course had been added.");
         return ;
     }
+    if(!getCourseData(CourseID)) {
+        return;
+    }
     CourseSelectedList.push(CourseID);
     save();
     showTable();
