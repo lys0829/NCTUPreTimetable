@@ -123,7 +123,7 @@ $( document ).ready(function() {
 
     $("#timetable").on("click",".course",function(){
         id = $(this).attr("name");
-        id = parseInt(id);
+        //id = parseInt(id);
         setCourseInfoModal(id);
         $('#CourseInfoModal').modal('show');
     });
@@ -141,14 +141,14 @@ $( document ).ready(function() {
             alert("Please enter a course id");
             return ;
         }
-        id = parseInt(id);
+        //id = parseInt(id);
         $("#AddCourseID").val("");
         AddCourse(id);
     });
 
     $("#CourseInfoModal-Delete").click(function(){
         id = $(this).attr("name");
-        id = parseInt(id);
+        //id = parseInt(id);
         DeleteCourse(id);
         $('#CourseInfoModal').modal('hide');
     });
