@@ -3,8 +3,12 @@ const Semester = 1
 AllCourse = {}
 CourseSelectedList = []
 CourseDisableList = []
+UsingShareData = false
 
 function save(){
+    if(UsingShareData){
+        return ;
+    }
     localStorage.setItem("CourseSelectedList",JSON.stringify(CourseSelectedList));
     localStorage.setItem("CourseDisableList",JSON.stringify(CourseDisableList));
 }
@@ -135,6 +139,19 @@ function EnableDisableCourse(CourseID){
     showTable();
 }
 
+function shareLink(){
+    shareCode = btoa(JSON.stringify(CourseSelectedList));
+    console.log(shareCode);
+    link = `${location.protocol}//${location.host}${location.pathname}?share=${shareCode}`;
+    $("#CopyURL").val(link);
+    $("#CopyURL").attr("type","text");
+    $("#CopyURL").select();
+    document.execCommand('copy');
+    $("#CopyURL").attr("type","hidden");
+    $("#CopiedToast .toast-body a").attr("href",link);
+    $("#CopiedToast").toast("show");
+}
+
 function setCourseInfoModal(CourseID){
     Course = getCourseData(CourseID);
     $("#CourseInfoModal-Title").html(Course["name"]);
@@ -169,7 +186,15 @@ $( document ).ready(function() {
     });
     jQuery.ajaxSetup({async:true});
     gentable();
+    urlp = new URLSearchParams(window.location.search);
     load();
+    if(urlp.has('share')){
+        //console.log(urlp.get('share'));
+        CourseSelectedList = JSON.parse(atob(urlp.get('share')));
+        CourseDisableList = [];
+        UsingShareData = true;
+        $("#SharingModal").modal('show');
+    }
     showTable();
     $("#timetable").on("mouseenter",".course",function(){
         id = $(this).attr("name");
@@ -217,5 +242,26 @@ $( document ).ready(function() {
         //id = parseInt(id);
         EnableDisableCourse(id);
         $('#CourseInfoModal').modal('hide');
+    });
+
+    $("#ShareButton").click(function(){
+        shareLink();
+    });
+
+    $("#SharingModal-Viewself").click(function(){
+        UsingShareData = false;
+        load();
+        showTable();
+        $("#SharingModal").modal('hide');
+    });
+
+    $("#SharingModal-Import").click(function(){
+        UsingShareData = false;
+        save();
+        window.location = `${location.protocol}//${location.host}${location.pathname}`;
+    });
+
+    $("#CopiedToast .toast-body").click(function(){
+        window.open($("#CopiedToast .toast-body a").attr("href"));
     });
 });

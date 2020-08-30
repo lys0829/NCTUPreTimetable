@@ -7,7 +7,7 @@
   </head>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.js" crossorigin="anonymous"></script>
   <script src="index.js"></script>
   <body>
     <!-- Course info modal -->
@@ -33,11 +33,39 @@
       </div>
     </div>
     <!-- Course info modal end-->
+    <!-- Sharing info modal -->
+    <div class="modal fade" id="SharingModal" tabindex="-1" aria-labelledby="SharingModal-Title" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="SharingModal-Title">您正在瀏覽分享課表</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="SharingModal-body">
+              請注意: 匯入分享課表將會清空原有資料
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-warning mr-auto" id="SharingModal-Import">匯入分享課表</button>
+              <button type="button" class="btn btn-info" id="SharingModal-Viewself">瀏覽個人課表</button>
+              <button type="button" class="btn btn-success" data-dismiss="modal">繼續</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Sharing info modal end-->
     <nav class="navbar navbar-dark bg-primary sticky-top">
       <a class="navbar-brand">交大預排課表小工具</a>
       <form class="form">
-      <button class="btn btn-success" style="pointer-events: none">Credit  <span class="badge badge-light" id="Credit">0.00</span></button>
-      <button class="btn btn-info" style="pointer-events: none">Hours  <span class="badge badge-light" id="Hours">0.00</span></button>
+        <button type="button" class="btn btn-outline-light" id="ShareButton">
+          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-share" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
+          </svg>
+          複製分享網址
+        </button>
+        <button type="button" class="btn btn-success" style="pointer-events: none">Credit  <span class="badge badge-light" id="Credit">0.00</span></button>
+        <button type="button" class="btn btn-info" style="pointer-events: none">Hours  <span class="badge badge-light" id="Hours">0.00</span></button>
       </form>
     </nav>
     <div class="container-fluid">
@@ -72,5 +100,18 @@
         </div>
       </div>
     </div>
+    
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" id="CopiedToast" data-delay="10000" style="position: fixed; bottom: 0; right: 0; width: 300px;">
+        <div class="toast-header">
+          <strong class="mr-auto">分享連結已複製</strong>
+          <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="toast-body" style="cursor: pointer;">
+          或點擊往分享連結<a target="_blank" href="#"></a>
+        </div>
+      </div>
+    <input type="hidden" id="CopyURL" value="">
   </body>
 </html>
