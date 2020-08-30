@@ -155,6 +155,7 @@ function setCourseInfoModal(CourseID){
         $("#CourseInfoModal-ED").removeClass("btn-secondary");
         $("#CourseInfoModal-ED").addClass("btn-primary");
     }
+    $("#CourseInfoModal-OutlineLink").attr("href",`https://timetable.nctu.edu.tw/?r=main/crsoutline&Acy=${Year}&Sem=${Semester}&CrsNo=${CourseID}`);
 }
 
 $( document ).ready(function() {
