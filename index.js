@@ -34,6 +34,9 @@ function parseTime(timeCode){
     re = /[1-7][A-Z]+/g;
     timelist = timeCode.match(re);
     res = [];
+    if(timelist==null){
+        return res;
+    }
     timelist.forEach(T => {
         for(i=1;i<T.length;i++){
             res.push(T[0]+T[i]);
