@@ -1,10 +1,12 @@
-Year = 109
-Semester = 1
+const Year = 109
+const Semester = 1
 AllCourse = {}
 CourseSelectedList = []
+CourseDisableList = []
 
 function save(){
     localStorage.setItem("CourseSelectedList",JSON.stringify(CourseSelectedList));
+    localStorage.setItem("CourseDisableList",JSON.stringify(CourseDisableList));
 }
 
 function load(){
@@ -12,6 +14,11 @@ function load(){
     CourseSelectedList = JSON.parse(CourseSelectedList);
     if(CourseSelectedList==null){
         CourseSelectedList = []
+    }
+    CourseDisableList = localStorage.getItem("CourseDisableList");
+    CourseDisableList = JSON.parse(CourseDisableList);
+    if(CourseDisableList==null){
+        CourseDisableList = []
     }
 }
 
@@ -54,6 +61,21 @@ function getCourseData(CourseID){
     return AllCourse[id];
 }
 
+function calcCreditHours(CourseList = CourseSelectedList){
+    credit = 0.0;
+    hours = 0.0;
+    CourseList.forEach(CourseID => {
+        if(CourseDisableList.includes(CourseID)){
+            return;
+        }
+        Course = getCourseData(CourseID);
+        credit += parseFloat(Course["credit"]);
+        hours += parseFloat(Course["hours"]);
+    });
+    $("#Credit").html(credit);
+    $("#Hours").html(hours);
+}
+
 function showTable(CourseList = CourseSelectedList){
     $("#timetable tbody").empty();
     gentable();
@@ -62,10 +84,17 @@ function showTable(CourseList = CourseSelectedList){
         timelist = parseTime(Course['time']);
         for(i=0;i<timelist.length;i++){
             //close = `<button type="button" class="close" aria-label="Close" name="${Course['id']}"><span aria-hidden="true">&times;</span></button>`
-            html = `<button type="button" class="btn btn-outline-secondary course" name="${Course['id']}">${Course['name']}</button><br>`
+            if(CourseDisableList.includes(CourseID)){
+                disabled = "disabled";
+            }
+            else{
+                disabled = "";
+            }
+            html = `<button type="button" class="btn btn-outline-secondary course ${disabled}" name="${Course['id']}">${Course['name']}</button><br>`
             $(`#E-${timelist[i]}`).append(html);
         }
     });
+    calcCreditHours();
 }
 
 function AddCourse(CourseID){
@@ -91,6 +120,21 @@ function DeleteCourse(CourseID){
     showTable();
 }
 
+function EnableDisableCourse(CourseID){
+    if(!CourseSelectedList.includes(CourseID)){
+        alert("The course hadn'd been added.");
+        return ;
+    }
+    if(!CourseDisableList.includes(CourseID)){
+        CourseDisableList.push(CourseID);
+    }
+    else{
+        CourseDisableList.splice(CourseDisableList.indexOf(CourseID),1);
+    }
+    save();
+    showTable();
+}
+
 function setCourseInfoModal(CourseID){
     Course = getCourseData(CourseID);
     $("#CourseInfoModal-Title").html(Course["name"]);
@@ -100,6 +144,17 @@ function setCourseInfoModal(CourseID){
     $("#CourseInfoModal-info ul").append(`<li>時段教室： ${Course["time"]}</li>`);
     $("#CourseInfoModal-info ul").append(`<li>學　　分： ${Course["credit"]}</li>`);
     $("#CourseInfoModal-Delete").attr("name",CourseID);
+    $("#CourseInfoModal-ED").attr("name",CourseID);
+    if(!CourseDisableList.includes(CourseID)){
+        $("#CourseInfoModal-ED").html("Disable");
+        $("#CourseInfoModal-ED").removeClass("btn-primary");
+        $("#CourseInfoModal-ED").addClass("btn-secondary");
+    }
+    else{
+        $("#CourseInfoModal-ED").html("Enable");
+        $("#CourseInfoModal-ED").removeClass("btn-secondary");
+        $("#CourseInfoModal-ED").addClass("btn-primary");
+    }
 }
 
 $( document ).ready(function() {
@@ -153,6 +208,13 @@ $( document ).ready(function() {
         id = $(this).attr("name");
         //id = parseInt(id);
         DeleteCourse(id);
+        $('#CourseInfoModal').modal('hide');
+    });
+    
+    $("#CourseInfoModal-ED").click(function(){
+        id = $(this).attr("name");
+        //id = parseInt(id);
+        EnableDisableCourse(id);
         $('#CourseInfoModal').modal('hide');
     });
 });

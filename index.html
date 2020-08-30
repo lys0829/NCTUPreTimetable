@@ -26,12 +26,19 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" id="CourseInfoModal-Delete">Delete</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn" id="CourseInfoModal-ED">Disable</button>
           </div>
         </div>
       </div>
     </div>
     <!-- Course info modal end-->
+    <nav class="navbar navbar-dark bg-primary sticky-top">
+      <a class="navbar-brand">交大預排課表小工具</a>
+      <form class="form">
+      <button class="btn btn-success" style="pointer-events: none">Credit  <span class="badge badge-light" id="Credit">0.00</span></button>
+      <button class="btn btn-info" style="pointer-events: none">Hours  <span class="badge badge-light" id="Hours">0.00</span></button>
+      </form>
+    </nav>
     <div class="container-fluid">
       <div class="row justify-content-center" style="margin-top: 20px">
         <div class="col-3">

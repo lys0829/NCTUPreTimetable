@@ -45,6 +45,7 @@ for D in OriginData:
                 "name": C["cos_cname"],
                 "time": C["cos_time"],
                 "credit": C["cos_credit"],
+                "hours": C["cos_hours"],
                 "teacher": C["teacher"]
             }
 
