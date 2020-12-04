@@ -1,5 +1,5 @@
 const Year = 109
-const Semester = 1
+const Semester = 2
 AllCourse = {}
 CourseSelectedList = []
 CourseDisableList = []
@@ -27,14 +27,15 @@ function load(){
 }
 
 function gentable(){
-    TimeList = ["M","N","A","B","C","D","X","E","F","G","H","Y","I","J","K","L"];
+    TimeList = ["y","z","1","2","3","4","n","5","6","7","8","9","a","b","c","d"];
+    DayList = ["M","T","W","R","F","S","U"];
     TimeStatement = ["6:00 ~ 6:50","7:00 ~ 7:50","8:00 ~ 8:50","9:00 ~ 9:50","10:10 ~ 11:00","11:10 ~ 12:00","12:20 ~ 13:10","13:20 ~ 14:10","14:20 ~ 15:10","15:30 ~ 16:20","16:30 ~ 17:20","17:30 ~ 18:20","18:30 ~ 19:20","19:30 ~ 20:20","20:30 ~ 21:20","21:30 ~ 22:20"]
     Tid=0;
     TimeList.forEach(T => {
         //console.log(T);
         tr = `<tr id="R-${T}"><td scope="row">${T}-(${TimeStatement[Tid++]})</td>`;
-        for(D=1;D<=7;D++){
-            tr += `<td id="E-${D}${T}" class="TableElement" align='center' style="vertical-align: middle;"></td>`;
+        for(D=0;D<7;D++){
+            tr += `<td id="E-${DayList[D]}${T}" class="TableElement" align='center' style="vertical-align: middle;"></td>`;
         }
         tr += `</tr>`;
         $("#timetable tbody").append(tr);
@@ -42,7 +43,7 @@ function gentable(){
 }
 
 function parseTime(timeCode){
-    re = /[1-7][A-Z]+/g;
+    re = /[MTWRFSU][1-9yznabcd]+/g;
     timelist = timeCode.match(re);
     res = [];
     if(timelist==null){
