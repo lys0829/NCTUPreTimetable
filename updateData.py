@@ -3,7 +3,7 @@ import re
 import requests
 
 Year = 109
-Semester = 1
+Semester = 2
 
 reqData = {"m_acy":Year,
             "m_sem":Semester,
