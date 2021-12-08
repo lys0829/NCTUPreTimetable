@@ -3,7 +3,7 @@ import re
 import requests
 
 Year = 110
-Semester = 1
+Semester = 2
 baseURL = "https://timetable.nycu.edu.tw/"
 
 data_type = []
@@ -16,7 +16,7 @@ if res.status_code != 200:
     print("Request type data error!!")
     exit()
 data_type = [r["uid"] for r in json.loads(res.text)]
-#print(data_type)
+#print(res.text)
 
 data_type_category = []
 reqData = {
@@ -45,6 +45,7 @@ reqData = {
     "fcategory":""
 }
 for tc in data_type_category:
+    #print(tc)
     reqData["ftype"] = tc[0]
     reqData["fcategory"] = tc[1]
     res = requests.post(baseURL+"?r=main/get_college",data = reqData,headers={'user-agent': 'Mozilla/5.0'})
@@ -52,6 +53,7 @@ for tc in data_type_category:
         print("Request type %s category %s data error!!"%(tc[0],tc[1]))
         continue
     #print(res.text)
+    data_type_category_college.append((tc[0],tc[1],"*"))
     for c in json.loads(res.text):
         if len(c) <= 0:
             continue
@@ -67,6 +69,7 @@ reqData = {
     "fcollege":""
 }
 for tc in data_type_category_college:
+    #print(tc)
     reqData["ftype"] = tc[0]
     reqData["fcategory"] = tc[1]
     reqData["fcollege"] = tc[2]
@@ -108,7 +111,6 @@ for dep in data_dep:
     res = requests.post(baseURL+"?r=main/get_cos_list",data = reqData,headers={'user-agent': 'Mozilla/5.0'})
     if res.status_code != 200:
         print("Request course data error!! (dep: %s)"%dep)
-    #print(res.text)
     OriginData = json.loads(res.text)
 
     #with open("origin.json","r") as f:
