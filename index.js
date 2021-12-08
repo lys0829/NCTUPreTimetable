@@ -1,5 +1,5 @@
 const Year = 110
-const Semester = 1
+const Semester = 2
 AllCourse = {}
 CourseSelectedList = []
 CourseDisableList = []
