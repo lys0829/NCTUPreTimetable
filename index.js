@@ -1,5 +1,5 @@
 const Year = 110
-const Semester = 1
+const Semester = 2
 AllCourse = {}
 CourseSelectedList = []
 CourseDisableList = []
@@ -43,18 +43,10 @@ function gentable(){
 }
 
 function parseTime(timeCode){
-    re = /[MTWRFSU][1-9yznabcd]+/g;
-    timelist = timeCode.match(re);
-    res = [];
-    if(timelist==null){
-        return res;
-    }
-    timelist.forEach(T => {
-        for(i=1;i<T.length;i++){
-            res.push(T[0]+T[i]);
-        }
-    });
-    return res;
+    timeCode += ','
+    const re = /\-[A-Za-z0-9\[\]]+,/g
+    timeCode = timeCode.replaceAll(re, ',').slice(0, -1)
+    return timeCode.split(',')
 }
 
 function getCourseData(CourseID){
