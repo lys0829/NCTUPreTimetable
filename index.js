@@ -43,18 +43,16 @@ function gentable(){
 }
 
 function parseTime(timeCode){
-    re = /[MTWRFSU][1-9yznabcd]+/g;
-    timelist = timeCode.match(re);
+    timeCode += ','
+    re = /\-[A-Za-z0-9\[\]]+,/g
+    timelist = timeCode.replaceAll(re, ',').slice(0, -1).split(',')
     res = [];
-    if(timelist==null){
-        return res;
-    }
     timelist.forEach(T => {
         for(i=1;i<T.length;i++){
             res.push(T[0]+T[i]);
         }
     });
-    return res;
+    return res
 }
 
 function getCourseData(CourseID){
