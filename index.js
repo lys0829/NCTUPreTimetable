@@ -1,5 +1,6 @@
-const Year = 110
-const Semester = 2
+const SemesterList = [[111,1],[110,2]]
+Year = 110
+Semester = 2
 AllCourse = {}
 CourseSelectedList = []
 CourseDisableList = []
@@ -9,17 +10,17 @@ function save(){
     if(UsingShareData){
         return ;
     }
-    localStorage.setItem("CourseSelectedList",JSON.stringify(CourseSelectedList));
-    localStorage.setItem("CourseDisableList",JSON.stringify(CourseDisableList));
+    localStorage.setItem(`CourseSelectedList-${Year}-${Semester}`,JSON.stringify(CourseSelectedList));
+    localStorage.setItem(`CourseDisableList-${Year}-${Semester}`,JSON.stringify(CourseDisableList));
 }
 
 function load(){
-    CourseSelectedList = localStorage.getItem("CourseSelectedList");
+    CourseSelectedList = localStorage.getItem(`CourseSelectedList-${Year}-${Semester}`);
     CourseSelectedList = JSON.parse(CourseSelectedList);
     if(CourseSelectedList==null){
         CourseSelectedList = []
     }
-    CourseDisableList = localStorage.getItem("CourseDisableList");
+    CourseDisableList = localStorage.getItem(`CourseDisableList-${Year}-${Semester}`);
     CourseDisableList = JSON.parse(CourseDisableList);
     if(CourseDisableList==null){
         CourseDisableList = []
@@ -180,6 +181,28 @@ function setCourseInfoModal(CourseID){
 }
 
 $( document ).ready(function() {
+    LastYear = localStorage.getItem("LastYear");
+    if(LastYear == null) LastYear = Year;
+    else LastYear = parseInt(LastYear);
+    LastSemester = localStorage.getItem("LastSemester");
+    if(LastSemester == null) LastSemester = Semester;
+    else LastSemester = parseInt(LastSemester);
+    checkYS = false;
+    SemesterList.forEach(function(S){if(S[0]==LastYear && S[1]==LastSemester)checkYS=true;});
+    if(checkYS){
+        Year = LastYear;
+        Semester = LastSemester;
+    }
+    
+    $("#semesterDropdownText").html(`${Year}-${Semester}`);
+    SemesterList.forEach(function(S){
+        active = "";
+        if(S[0]==Year && S[1]==Semester){
+            active = "active";
+        }
+        $("#semesterDropdownMenu").append(`<a class="dropdown-item ${active}" id="semester-item-${S[0]}-${S[1]}" href="#" onclick="changeSemester(${S[0]},${S[1]})">${S[0]}-${S[1]}</a>`);
+    });
+    
     jQuery.ajaxSetup({async:false});
     $.get(`${Year}${Semester}-data.json`,function(data,status){
         if(status != "success"){
@@ -269,3 +292,31 @@ $( document ).ready(function() {
         window.open($("#CopiedToast .toast-body a").attr("href"));
     });
 });
+
+function changeSemester(year, sem){
+    check = false;
+    SemesterList.forEach(function(S){if(S[0]==year && S[1]==sem)check=true;});
+    if(!check){
+        return ;
+    }
+    $(`#semester-item-${Year}-${Semester}`).removeClass("active");
+    save();
+    Year = year;
+    Semester = sem;
+    jQuery.ajaxSetup({async:false});
+    $.get(`${Year}${Semester}-data.json`,function(data,status){
+        if(status != "success"){
+            alert("Couldn't get course data!!");
+        }
+        //console.log(data);
+        AllCourse = data;
+    });
+    jQuery.ajaxSetup({async:true});
+    gentable();
+    load();
+    showTable();
+    localStorage.setItem("LastYear", Year);
+    localStorage.setItem("LastSemester", Semester);
+    $("#semesterDropdownText").html(`${Year}-${Semester}`);
+    $(`#semester-item-${Year}-${Semester}`).addClass("active");
+}
