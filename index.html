@@ -55,18 +55,32 @@
         </div>
       </div>
       <!-- Sharing info modal end-->
-    <nav class="navbar navbar-dark bg-primary sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
       <a class="navbar-brand">交大預排課表小工具</a>
-      <form class="form">
-        <button type="button" class="btn btn-outline-light" id="ShareButton">
-          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-share" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
-          </svg>
-          複製分享網址
-        </button>
-        <button type="button" class="btn btn-success" style="pointer-events: none">Credit  <span class="badge badge-light" id="Credit">0.00</span></button>
-        <button type="button" class="btn btn-info" style="pointer-events: none">Hours  <span class="badge badge-light" id="Hours">0.00</span></button>
-      </form>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="semesterDropdownText" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Semester
+            </a>
+            <div class="dropdown-menu" id="semesterDropdownMenu">
+            </div>
+            </li>
+        </ul>
+        <form class="form">
+            <button type="button" class="btn btn-outline-light" id="ShareButton">
+              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-share" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
+              </svg>
+              複製分享網址
+            </button>
+            <button type="button" class="btn btn-success" style="pointer-events: none">Credit  <span class="badge badge-light" id="Credit">0.00</span></button>
+            <button type="button" class="btn btn-info" style="pointer-events: none">Hours  <span class="badge badge-light" id="Hours">0.00</span></button>
+        </form>
+      </div>
     </nav>
     <div class="container-fluid">
       <div class="row justify-content-center" style="margin-top: 20px">
