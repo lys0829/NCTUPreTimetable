@@ -2,7 +2,7 @@ name: Update Course Data
 
 on:
   workflow_dispatch:
-
+    - cron: '0 0,8,16 * * *'
 jobs:
   UpdateData:
     runs-on: ubuntu-latest
