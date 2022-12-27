@@ -20,7 +20,7 @@ reqData = {
     "acysem":str(Year)+str(Semester),
     "acysemend":str(Year)+str(Semester)
 }
-res = requests.post(baseURL+"?r=main/get_type",data = reqData,headers={'user-agent': 'Mozilla/5.0'})
+res = requests.post(baseURL+"?r=main/get_type",data = reqData,headers={'user-agent': 'Mozilla/5.0'},verify=False)
 if res.status_code != 200:
     print("Request type data error!!")
     exit()
@@ -35,7 +35,7 @@ reqData = {
 }
 for t in data_type:
     reqData["ftype"] = t
-    res = requests.post(baseURL+"?r=main/get_category",data = reqData,headers={'user-agent': 'Mozilla/5.0'})
+    res = requests.post(baseURL+"?r=main/get_category",data = reqData,headers={'user-agent': 'Mozilla/5.0'},verify=False)
     if res.status_code != 200:
         print("Request type %s data error!!"%t)
         continue
@@ -57,7 +57,7 @@ for tc in data_type_category:
     #print(tc)
     reqData["ftype"] = tc[0]
     reqData["fcategory"] = tc[1]
-    res = requests.post(baseURL+"?r=main/get_college",data = reqData,headers={'user-agent': 'Mozilla/5.0'})
+    res = requests.post(baseURL+"?r=main/get_college",data = reqData,headers={'user-agent': 'Mozilla/5.0'},verify=False)
     if res.status_code != 200:
         print("Request type %s category %s data error!!"%(tc[0],tc[1]))
         continue
@@ -83,7 +83,7 @@ for tc in data_type_category_college:
     reqData["ftype"] = tc[0]
     reqData["fcategory"] = tc[1]
     reqData["fcollege"] = tc[2]
-    res = requests.post(baseURL+"?r=main/get_dep",data = reqData,headers={'user-agent': 'Mozilla/5.0'})
+    res = requests.post(baseURL+"?r=main/get_dep",data = reqData,headers={'user-agent': 'Mozilla/5.0'},verify=False)
     if res.status_code != 200:
         print("Request type %s category %s dep %s data error!!"%(tc[0],tc[1],tc[2]))
         continue
@@ -123,7 +123,7 @@ for dep in data_dep:
     if Verbose:
         print("[Info] Getting course data in department %s (%s)"%(data_dep_name[dep],dep))
     reqData["m_dep_uid"] = dep
-    res = requests.post(baseURL+"?r=main/get_cos_list",data = reqData,headers={'user-agent': 'Mozilla/5.0'})
+    res = requests.post(baseURL+"?r=main/get_cos_list",data = reqData,headers={'user-agent': 'Mozilla/5.0'},verify=False)
     if res.status_code != 200:
         print("Request course data error!! (dep: %s)"%dep)
     OriginData = json.loads(res.text)
