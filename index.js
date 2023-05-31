@@ -1,4 +1,4 @@
-const SemesterList = [[111,2],[111,1],[110,2]]
+const SemesterList = [[112,1],[111,2],[111,1],[110,2]]
 Year = 110
 Semester = 2
 AllCourse = {}
