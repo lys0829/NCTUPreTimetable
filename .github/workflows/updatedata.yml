@@ -18,13 +18,13 @@ jobs:
 
       - name: pull data
         run: |
-          python3 updateData.py 112 2 1
+          python3 updateData.py 113 1 1
       
       - name: commit and push
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git status
-          git add 1122-data.json
+          git add 1131-data.json
           git commit -m "Update data"
           git push
