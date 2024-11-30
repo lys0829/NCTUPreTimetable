@@ -18,7 +18,7 @@ jobs:
 
       - name: pull data
         run: |
-          python3 updateData.py 113 1 1
+          python3 updateData.py 113 2 1
       
       - name: commit and push
         run: |
