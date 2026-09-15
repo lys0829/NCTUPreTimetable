@@ -1,6 +1,6 @@
-const SemesterList = [[114,2],[114,1],[113,2],[113,1],[112,2],[112,1],[111,2],[111,1],[110,2]]
-Year = 114
-Semester = 2
+const SemesterList = [[115,1],[114,2],[114,1],[113,2],[113,1],[112,2],[112,1],[111,2],[111,1],[110,2]]
+Year = 115
+Semester = 1
 AllCourse = {}
 CourseSelectedList = []
 CourseDisableList = []
